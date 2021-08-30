@@ -10,6 +10,7 @@
     "@types/node": "^12.20.21",
     "@types/react": "^17.0.19",
     "@types/react-dom": "^17.0.9",
+    "axios": "^0.21.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-query": "^3.21.1",
@@ -22,7 +23,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "mock": "json-server src/mock/json-server-data.json --port 3004"
   },
   "eslintConfig": {
     "extends": [
