@@ -6,7 +6,7 @@ import {
   Link
 } from "react-router-dom";
 
-import { useFetchUsers } from './services/data/users';
+import { useFetchUsers } from './services/data/users.service';
 
 const queryClient = new QueryClient();
 
