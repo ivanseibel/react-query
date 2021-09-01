@@ -13,6 +13,11 @@ export interface User {
     company: Company;
 }
 
+export interface UserResponse {
+    users: User[];
+    totalCount: number;
+    totalPages: number;
+}
 export interface Address {
     street: string;
     suite: string;
