@@ -83,6 +83,7 @@ function Users() {
 
   const handleLimit = useCallback((e) => {
     setLimit(e.target.value);
+    setPage(1);
   }, [])
 
   return (
