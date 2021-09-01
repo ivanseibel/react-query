@@ -98,6 +98,12 @@ function Users() {
       )}
 
       <ul className="user-list-grid">
+        <li>
+          <strong>id</strong>
+          <strong>name</strong>
+          <strong>email</strong>
+          <strong>website</strong>
+        </li>
         {data?.users.map(user => (
           <li>
             <span>{user.id}</span>
