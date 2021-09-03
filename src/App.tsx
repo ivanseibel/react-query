@@ -9,16 +9,22 @@ import {
 import { useFetchUsers } from './services/data/users.service';
 
 import './App.css';
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useCallback } from "react";
+import { useEffect } from "react";
 
 const queryClient = new QueryClient();
+
+interface IFilterOption {
+  filter: string;
+  filterValue: string;
+}
 
 export default function App() {
   return (
     <QueryClientProvider client={queryClient} >
       <Router>
-        <div className="main">
+        <div id="main">
           <nav>
             <ul>
               <li>
@@ -51,6 +57,10 @@ function Home() {
 function Users() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(1);
+  // const [filters, setFilters] = useState<string[]>([]);
+  const [appliedFilters, setAppliedFilters] = useState<IFilterOption[]>([]);
+  const [selectedFilter, setSelectedFilter] = useState('id');
+  const [filterInput, setFilterInput] = useState('');
 
   const {
     data,
@@ -86,36 +96,99 @@ function Users() {
     setPage(1);
   }, [])
 
+  const handleFilterInput = useCallback((e) => {
+    setFilterInput(e.target.value);
+  }, []);
+
+  const handleSelectedFilter = useCallback((e) => {
+    setSelectedFilter(e.target.value);
+  }, []);
+
+  const handleApplyFilter = useCallback(() => {
+    const newFilter = {
+      filter: selectedFilter,
+      filterValue: filterInput
+    };
+
+    setAppliedFilters([...appliedFilters, newFilter]);
+  }, [appliedFilters, filterInput, selectedFilter]);
+
+  const handleCloseFilter = useCallback((index: number) => {
+    const newAppliedFilters = appliedFilters;
+    newAppliedFilters.splice(index, 1);
+    setAppliedFilters([...newAppliedFilters]);
+  }, [appliedFilters]);
+
+  useEffect(() => {
+    console.table(appliedFilters);
+  }, [appliedFilters]);
+
   return (
     <>
       <h2>Users</h2>
       {isLoading && (
-        <span>...loading data</span>
+        <p>...loading data</p>
       )}
 
       {isError && error && (
-        <span>{error.message}</span>
+        <p>{error.message}</p>
       )}
 
-      <ul className="user-list-grid">
-        <li>
-          <strong>id</strong>
-          <strong>name</strong>
-          <strong>email</strong>
-          <strong>website</strong>
-        </li>
-        {data?.users.map(user => (
+      <div id="filters-container">
+        <div className="line1">
+          <input
+            type="text"
+            name="filter"
+            id="filter"
+            onChange={handleFilterInput}
+            className="filters-elements"
+          />
+          <button type="submit" onClick={handleApplyFilter} >Filter</button>
+          <select
+            name="filters-list"
+            id="filters-list"
+            onChange={handleSelectedFilter}
+            className="filters-elements"
+          >
+            <option value="id">id</option>
+            <option value="name">name</option>
+            <option value="email">email</option>
+            <option value="website">website</option>
+          </select>
+        </div>
+        <div className="line2">
+          {appliedFilters.map((item, index) => (
+            <Fragment key={index.toString()}>
+              <div>
+                <span className="filters-badge">{item.filter}={item.filterValue}</span>
+                <span className="close-icon" onClick={() => handleCloseFilter(index)}>x</span>
+              </div>
+            </Fragment>
+          ))}
+        </div>
+      </div>
+
+      {data?.users && (
+        <ul id="user-list-grid">
           <li>
-            <span>{user.id}</span>
-            <span>{user.name}</span>
-            <span>{user.email}</span>
-            <span>{user.website}</span>
+            <strong>id</strong>
+            <strong>name</strong>
+            <strong>email</strong>
+            <strong>website</strong>
           </li>
-        ))}
-      </ul>
+          {data.users.map(user => (
+            <li key={user.email} >
+              <span>{user.id}</span>
+              <span>{user.name}</span>
+              <span>{user.email}</span>
+              <span>{user.website}</span>
+            </li>
+          ))}
+        </ul>
+      )}
 
       <footer>
-        <div className="page-buttons">
+        <div id="page-buttons">
           <button onClick={handleFirstPage}>
             {`|<`}
           </button>
@@ -129,9 +202,9 @@ function Users() {
             {`>|`}
           </button>
         </div>
-        <div className="limit">
+        <div id="limit">
           <label htmlFor="limit">limit:
-            <select name="limit" id="limit" onChange={handleLimit} >
+            <select name="limit" id="limit-items" onChange={handleLimit} >
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
