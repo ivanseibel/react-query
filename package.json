@@ -24,7 +24,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "mock": "json-server src/mock/json-server-data.json --port 3004 --delay 500"
+    "mock": "json-server src/mock/json-server-data.json --port 3004 --delay 2000"
   },
   "eslintConfig": {
     "extends": [

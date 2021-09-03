@@ -118,7 +118,7 @@ function Users() {
     <>
       <h2>Users</h2>
       {isLoading && (
-        <p>...loading data</p>
+        <span id="loading">⌛</span>
       )}
 
       {isError && error && (
