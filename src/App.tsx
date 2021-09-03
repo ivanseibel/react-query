@@ -1,3 +1,4 @@
+import { useCallback, Fragment, useState } from "react";
 import { QueryClientProvider, QueryClient } from "react-query";
 import {
   BrowserRouter as Router,
@@ -7,18 +8,11 @@ import {
 } from "react-router-dom";
 
 import { useFetchUsers } from './services/data/users.service';
-
 import './App.css';
-import { Fragment, useState } from "react";
-import { useCallback } from "react";
-import { useEffect } from "react";
+import { FilterOption } from './types/ui.types';
+
 
 const queryClient = new QueryClient();
-
-interface IFilterOption {
-  filter: string;
-  filterValue: string;
-}
 
 export default function App() {
   return (
@@ -58,7 +52,7 @@ function Users() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(1);
   // const [filters, setFilters] = useState<string[]>([]);
-  const [appliedFilters, setAppliedFilters] = useState<IFilterOption[]>([]);
+  const [appliedFilters, setAppliedFilters] = useState<FilterOption[]>([]);
   const [selectedFilter, setSelectedFilter] = useState('id');
   const [filterInput, setFilterInput] = useState('');
 
@@ -67,7 +61,7 @@ function Users() {
     isLoading,
     isError,
     error
-  } = useFetchUsers(page, limit);
+  } = useFetchUsers(page, limit, appliedFilters);
 
   const handlePreviousPage = useCallback(() => {
     if (page === 1) {
@@ -111,16 +105,13 @@ function Users() {
     };
 
     setAppliedFilters([...appliedFilters, newFilter]);
+    setFilterInput('');
   }, [appliedFilters, filterInput, selectedFilter]);
 
   const handleCloseFilter = useCallback((index: number) => {
     const newAppliedFilters = appliedFilters;
     newAppliedFilters.splice(index, 1);
     setAppliedFilters([...newAppliedFilters]);
-  }, [appliedFilters]);
-
-  useEffect(() => {
-    console.table(appliedFilters);
   }, [appliedFilters]);
 
   return (
@@ -140,6 +131,7 @@ function Users() {
             type="text"
             name="filter"
             id="filter"
+            value={filterInput}
             onChange={handleFilterInput}
             className="filters-elements"
           />
@@ -151,7 +143,7 @@ function Users() {
             className="filters-elements"
           >
             <option value="id">id</option>
-            <option value="name">name</option>
+            <option value="name_like">name</option>
             <option value="email">email</option>
             <option value="website">website</option>
           </select>
