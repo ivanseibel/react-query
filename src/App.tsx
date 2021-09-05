@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 import { useFetchUsers } from './services/data/users.service';
-import { Filters } from './ui/components/index';
+import { Filters, UsersList } from './ui/components/index';
 import './App.css';
 import { FilterOption } from './types/ui.types';
 
@@ -90,30 +90,6 @@ function Users() {
     setPage(1);
   }, [])
 
-  // const handleFilterInput = useCallback((e) => {
-  //   setFilterInput(e.target.value);
-  // }, []);
-
-  // const handleSelectedFilter = useCallback((e) => {
-  //   setSelectedFilter(e.target.value);
-  // }, []);
-
-  // const handleApplyFilter = useCallback(() => {
-  //   const newFilter = {
-  //     filter: selectedFilter,
-  //     filterValue: filterInput
-  //   };
-
-  //   setAppliedFilters([...appliedFilters, newFilter]);
-  //   setFilterInput('');
-  // }, [appliedFilters, filterInput, selectedFilter]);
-
-  // const handleCloseFilter = useCallback((index: number) => {
-  //   const newAppliedFilters = appliedFilters;
-  //   newAppliedFilters.splice(index, 1);
-  //   setAppliedFilters([...newAppliedFilters]);
-  // }, [appliedFilters]);
-
   return (
     <>
       <h2>Users</h2>
@@ -126,25 +102,7 @@ function Users() {
       )}
 
       <Filters appliedFilters={appliedFilters} setAppliedFilters={setAppliedFilters} />
-
-      {data?.users && (
-        <ul id="user-list-grid">
-          <li>
-            <strong>id</strong>
-            <strong>name</strong>
-            <strong>email</strong>
-            <strong>website</strong>
-          </li>
-          {data.users.map(user => (
-            <li key={user.email} >
-              <span>{user.id}</span>
-              <span>{user.name}</span>
-              <span>{user.email}</span>
-              <span>{user.website}</span>
-            </li>
-          ))}
-        </ul>
-      )}
+      <UsersList users={data?.users || []} />
 
       <footer>
         <div id="page-buttons">

@@ -1,0 +1,11 @@
+#user-list-grid {
+  flex-direction: column;
+  border: 1px solid gainsboro;
+  border-radius: 4px;
+}
+
+#user-list-grid li {
+  display: grid;
+  grid-template-columns: 30px 190px 230px auto;
+  padding: 4px 3px;
+}
