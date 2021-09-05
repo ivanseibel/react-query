@@ -1,6 +1,8 @@
 import React, { Dispatch, Fragment, SetStateAction, useCallback, useState } from 'react';
 
-import { FilterOption } from '../../types/ui.types';
+import { FilterOption } from '../../../types/ui.types';
+
+import './styles.css';
 
 interface FiltersProps {
   setAppliedFilters: Dispatch<SetStateAction<FilterOption[]>>;
