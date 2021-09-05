@@ -4,7 +4,7 @@ import { FilterOption } from '../../../types/ui.types';
 
 import './styles.css';
 
-import { Filters, Footer, UsersList } from '../../components';
+import { Filters, Footer, Loading, UsersList } from '../../components';
 
 export const UsersPage: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -49,7 +49,7 @@ export const UsersPage: React.FC = () => {
     <>
       <h2>Users</h2>
       {isLoading && (
-        <span id="loading">⌛</span>
+        <Loading />
       )}
 
       {isError && error && (

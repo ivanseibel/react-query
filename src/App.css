@@ -20,16 +20,3 @@
 nav ul li:nth-of-type(2n) {
     margin-left: 10px;
 }
-
-#loading {
-    position: absolute;
-    left: calc(50% - 19px);
-    top: calc(50% - 20px);
-    animation: rotation 2s infinite linear;
-}
-
-@keyframes rotation {
-    to {
-        transform: rotate(360deg);
-    }
-  }
