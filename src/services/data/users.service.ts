@@ -5,6 +5,7 @@ import { UserResponse } from '../../types/server.data.types';
 import { FilterOption } from '../../types/ui.types';
 
 const DEFAULT_STALE_TIME = 10000;
+const DEFAULT_HOST = 'http://localhost:3004';
 
 const fetchUsers = async (page: number, limit: number, filters: FilterOption[]) => {
     const params = new URLSearchParams();
@@ -17,7 +18,7 @@ const fetchUsers = async (page: number, limit: number, filters: FilterOption[]) 
 
     const parsedParams = filters.length > 0 ? `&${params.toString()}` : '';
 
-    const response = await axios.get(`http://localhost:3004/users?_page=${page}&_limit=${limit}${parsedParams}`);
+    const response = await axios.get(`${DEFAULT_HOST}/users?_page=${page}&_limit=${limit}${parsedParams}`);
     const { data } = response;
     const { "x-total-count": totalCount } = response.headers;
     const totalPages = Math.ceil(totalCount / limit);
