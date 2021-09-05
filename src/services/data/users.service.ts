@@ -27,6 +27,6 @@ const fetchUsers = async (page: number, limit: number, filters: FilterOption[]) 
 
 export function useFetchUsers(page: number, limit: number, filters: FilterOption[]) {
   return useQuery<UserResponse, Error>(['users', { page, limit, filters }], () => fetchUsers(page, limit, filters), {
-    staleTime: DEFAULT_STALE_TIME
+    cacheTime: DEFAULT_STALE_TIME,
   });
 }
