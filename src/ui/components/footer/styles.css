@@ -1,0 +1,38 @@
+footer {
+  padding: 15px 0;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+#page-buttons {
+  width: 150px;
+  height: 30px;
+
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#page-buttons button {
+  border: none;
+  border-radius: 4px;
+  width: 30px;
+}
+
+#limit {
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+}
+
+#limit select {
+  width: 40px;
+  height: 30px;
+  margin-left: 5px;
+  border-radius: 4px;
+  background-color: white;
+  border-color: gainsboro;
+}

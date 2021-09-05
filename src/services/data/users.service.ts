@@ -5,27 +5,28 @@ import { UserResponse } from '../../types/server.data.types';
 import { FilterOption } from '../../types/ui.types';
 
 const DEFAULT_STALE_TIME = 10000;
+const DEFAULT_HOST = 'http://localhost:3004';
 
 const fetchUsers = async (page: number, limit: number, filters: FilterOption[]) => {
-    const params = new URLSearchParams();
+  const params = new URLSearchParams();
 
-    if (filters.length > 0) {
-        filters.forEach(filter => {
-            params.append(filter.filter, filter.filterValue);
-        });
-    }
+  if (filters.length > 0) {
+    filters.forEach(filter => {
+      params.append(filter.filter, filter.filterValue);
+    });
+  }
 
-    const parsedParams = filters.length > 0 ? `&${params.toString()}` : '';
+  const parsedParams = filters.length > 0 ? `&${params.toString()}` : '';
 
-    const response = await axios.get(`http://localhost:3004/users?_page=${page}&_limit=${limit}${parsedParams}`);
-    const { data } = response;
-    const { "x-total-count": totalCount } = response.headers;
-    const totalPages = Math.ceil(totalCount / limit);
-    return { totalCount, totalPages, users: data };
+  const response = await axios.get(`${DEFAULT_HOST}/users?_page=${page}&_limit=${limit}${parsedParams}`);
+  const { data } = response;
+  const { "x-total-count": totalCount } = response.headers;
+  const totalPages = Math.ceil(totalCount / limit);
+  return { totalCount, totalPages, users: data };
 }
 
 export function useFetchUsers(page: number, limit: number, filters: FilterOption[]) {
-    return useQuery<UserResponse, Error>(['users', { page, limit, filters }], () => fetchUsers(page, limit, filters), {
-        staleTime: DEFAULT_STALE_TIME
-    });
+  return useQuery<UserResponse, Error>(['users', { page, limit, filters }], () => fetchUsers(page, limit, filters), {
+    cacheTime: DEFAULT_STALE_TIME,
+  });
 }
