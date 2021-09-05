@@ -1,18 +1,20 @@
 #root {
-    min-width: 600px;
-    width: 50%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main {
+    width: 600px;
     height: 550px;
-    margin: 15px auto;
     border: 1px solid gainsboro;
     border-radius: 4px;
     padding: 10px;
     box-shadow: 5px 5px 10px #808080;
-}
 
-#main {
     display: flex;
     flex-direction: column;
-    height: 100%;
 }
 
 #filters-container {
