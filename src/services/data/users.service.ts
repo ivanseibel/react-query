@@ -2,12 +2,12 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 
 import { UserResponse } from '../../types/server.data.types';
-import { FilterOption } from '../../types/ui.types';
+import { FilterOption, SortOption, SortType } from '../../types/ui.types';
 
 const DEFAULT_STALE_TIME = 10000;
 const DEFAULT_HOST = 'http://localhost:3004';
 
-const fetchUsers = async (page: number, limit: number, filters: FilterOption[]) => {
+const fetchUsers = async (page: number, limit: number, filters: FilterOption[], sortOption: SortOption) => {
   const params = new URLSearchParams();
 
   if (filters.length > 0) {
@@ -16,7 +16,13 @@ const fetchUsers = async (page: number, limit: number, filters: FilterOption[]) 
     });
   }
 
-  const parsedParams = filters.length > 0 ? `&${params.toString()}` : '';
+  if (sortOption) {
+    const order = sortOption.type === SortType.asc ? 'asc' : 'desc';
+    params.append('_sort', sortOption.attribute);
+    params.append('_order', order);
+  }
+
+  const parsedParams = `&${params.toString()}`;
 
   const response = await axios.get(`${DEFAULT_HOST}/users?_page=${page}&_limit=${limit}${parsedParams}`);
   const { data } = response;
@@ -25,8 +31,8 @@ const fetchUsers = async (page: number, limit: number, filters: FilterOption[]) 
   return { totalCount, totalPages, users: data };
 }
 
-export function useFetchUsers(page: number, limit: number, filters: FilterOption[]) {
-  return useQuery<UserResponse, Error>(['users', { page, limit, filters }], () => fetchUsers(page, limit, filters), {
+export function useFetchUsers(page: number, limit: number, filters: FilterOption[], sortOption: SortOption) {
+  return useQuery<UserResponse, Error>(['users', { page, limit, filters, sortOption }], () => fetchUsers(page, limit, filters, sortOption), {
     cacheTime: DEFAULT_STALE_TIME,
   });
 }

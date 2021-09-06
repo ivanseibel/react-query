@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useCallback, useState } from 'react';
 import { useFetchUsers } from '../../../services/data/users.service';
-import { FilterOption } from '../../../types/ui.types';
+import { FilterOption, SortOption, SortType } from '../../../types/ui.types';
 
 import './styles.css';
 
@@ -8,15 +8,19 @@ import { Filters, Footer, Loading, UsersList } from '../../components';
 
 export const UsersPage: React.FC = () => {
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(1);
+  const [limit, setLimit] = useState(10);
   const [appliedFilters, setAppliedFilters] = useState<FilterOption[]>([]);
+  const [sortOption, setSortOption] = useState<SortOption>({
+    attribute: 'id',
+    type: SortType.asc
+  });
 
   const {
     data,
     isLoading,
     isError,
     error
-  } = useFetchUsers(page, limit, appliedFilters);
+  } = useFetchUsers(page, limit, appliedFilters, sortOption);
 
   const handlePreviousPage = useCallback(() => {
     if (page === 1) {
@@ -57,7 +61,11 @@ export const UsersPage: React.FC = () => {
       )}
 
       <Filters appliedFilters={appliedFilters} setAppliedFilters={setAppliedFilters} />
-      <UsersList users={data?.users || []} />
+      <UsersList
+        users={data?.users || []}
+        setSortOption={setSortOption}
+        sortOption={sortOption}
+      />
       <Footer
         handleFirstPage={handleFirstPage}
         handleLastPage={handleLastPage}
