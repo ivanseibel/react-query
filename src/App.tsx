@@ -6,6 +6,8 @@ import {
   Link
 } from "react-router-dom";
 
+import { ReactQueryDevtools } from 'react-query/devtools';
+
 import './App.css';
 import { UsersPage } from './ui/pages';
 
@@ -37,6 +39,7 @@ export default function App() {
           </Switch>
         </div>
       </Router>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
