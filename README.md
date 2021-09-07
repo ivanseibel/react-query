@@ -5,7 +5,7 @@
 - [About](#about)
 - [Getting Started](#getting_started)
 - [Usage](#usage)
-- [conclusions](#conclusion)
+- [Conclusions](#conclusion)
 
 ## About <a name = "about"></a>
 
