@@ -9,7 +9,7 @@
 
 ## About <a name = "about"></a>
 
-I'm trying out a different and productive way to work with data fetch in React using the `react-query` library.
+I'm trying out a different and productive way to work with data fetch in React using the `react-query` library. You can find more information about this project at: [Website](https://react-query.tanstack.com/), [npm](https://www.npmjs.com/package/react-query) and [GitHub](https://github.com/tannerlinsley/react-query).
 
 In this project I will test the `react-query` library implementing the following features:
 
