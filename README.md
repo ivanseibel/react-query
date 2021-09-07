@@ -5,7 +5,7 @@
 - [About](#about)
 - [Getting Started](#getting_started)
 - [Usage](#usage)
-- [Contributing](../CONTRIBUTING.md)
+- [conclusions](#conclusion)
 
 ## About <a name = "about"></a>
 
@@ -52,6 +52,8 @@ If you choose to use `json-server` to emulate a real API you will need to run th
 # npm run mock
 ```
 
+An important detail here, don't be alarmed by the delay in responses from `json-server`. To get a clear sense of the effect of `react-query` caching I added a 2 second delay. You can adjust this in the `package.json` file in the scripts section.
+
 After that, just run the application to access the main screen and be able to browse the features.
 
 ```bash
@@ -89,3 +91,17 @@ You should see a screen similar to the one below.
     </td>
   </tr>
 </table>
+
+## Conclusions <a name = "about"></a>
+
+I personally have a bit of resistance to using this kind of "out of the box" solution because I like to understand what's going on behind the scenes while I'm communicating with the APIs.
+
+However, I have to say that `react-query` positively surprised me, it provided a way to maintain a global server state context and also provided an excellent caching solution with minimal configuration.
+
+Also, something that caught my attention was the few lines needed to get everything up and running, once you have a service model for getting the data using `react-query`, adding new calls will be extremely productive.
+
+Caching features are very useful and easy to use, and you would be surprised how powerful they can be within an application that seeks to be both performant and functional.
+
+I'm seriously considering using `react-query` in a few more projects to see how it fares in a production environment.
+
+As far as the project documentation is concerned, it's really extensive, but I missed beginning-middle-end examples, mainly involving typescript. Documentation for typescript can be improved.
