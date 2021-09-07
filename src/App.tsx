@@ -9,7 +9,7 @@ import {
 import { ReactQueryDevtools } from 'react-query/devtools';
 
 import './App.css';
-import { UsersPage } from './ui/pages';
+import { UserDetailsPage, UsersPage } from './ui/pages';
 
 const queryClient = new QueryClient();
 
@@ -30,12 +30,9 @@ export default function App() {
           </nav>
 
           <Switch>
-            <Route path="/users">
-              <UsersPage />
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
+            <Route path="/users" component={UsersPage} />
+            <Route path="/user-details" component={UserDetailsPage} />
+            <Route path="/" component={Home} />
           </Switch>
         </div>
       </Router>

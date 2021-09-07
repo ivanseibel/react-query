@@ -1,0 +1,44 @@
+#user-details-main {
+  display: flex;
+  flex: 1;
+  border: 1px solid gainsboro;
+  padding: 10px;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.group-label {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.group-label:nth-child(n+2) {
+  margin-top: 15px;
+}
+
+.data-group {
+  display: flex;
+  background-color: whitesmoke;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  padding: 10px 10px 0;
+  border-radius: 4px;
+  width: 560px;
+}
+
+.field-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-container:nth-child(n-1) {
+  margin-right: 15px;
+  margin-bottom: 10px;
+}
+
+.field-container label {
+  font-weight: 600;
+  font-size: 12px;
+}
