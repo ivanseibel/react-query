@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 
 import { UserResponse } from '../../types/server.data.types';
 import { FilterOption, SortOption, SortType } from '../../types/ui.types';
@@ -32,7 +32,13 @@ const fetchUsers = async (page: number, limit: number, filters: FilterOption[], 
 }
 
 export function useFetchUsers(page: number, limit: number, filters: FilterOption[], sortOption: SortOption) {
+  const queryClient = useQueryClient();
   return useQuery<UserResponse, Error>(['users', { page, limit, filters, sortOption }], () => fetchUsers(page, limit, filters, sortOption), {
     cacheTime: DEFAULT_STALE_TIME,
+    onSuccess: (response) => {
+      response.users.forEach((user) => {
+        queryClient.setQueryData(['user', user.id], user);
+      });
+    }
   });
 }

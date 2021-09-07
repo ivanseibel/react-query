@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { User } from '../../../types/server.data.types';
 import { SortOption, SortType } from '../../../types/ui.types';
 
@@ -45,12 +46,14 @@ export const UsersList: React.FC<UsersListProps> = ({ users, sortOption, setSort
           <strong onClick={handleChangeSort} id="attr-website">{getAttrName('website')}</strong>
         </li>
         {users.map(user => (
-          <li key={user.email} >
-            <span>{user.id}</span>
-            <span>{user.name}</span>
-            <span>{user.email}</span>
-            <span>{user.website}</span>
-          </li>
+          <Link to={{ pathname: "/user-details", state: { userId: user.id } }}>
+            <li key={user.email} >
+              <span>{user.id}</span>
+              <span>{user.name}</span>
+              <span>{user.email}</span>
+              <span>{user.website}</span>
+            </li>
+          </Link>
         ))}
       </ul>
     )
